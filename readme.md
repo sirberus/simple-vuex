@@ -140,6 +140,6 @@ export s.simplify()
 
 ## Dev Setup
 
-* Clone from GitHub repo (https://github.com/sirberus/vue-simple-store)
+* Clone from GitHub repo (https://github.com/sirberus/simple-vuex)
 
 * In /example/, open a terminal, npm install, and npm run serve
