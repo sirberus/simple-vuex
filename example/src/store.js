@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
-import store from '../../src/index.js'
+import store from 'simple-vuex'
 
 export default store()
   .addKey('dark', false)
