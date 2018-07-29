@@ -2,7 +2,7 @@
 
 [GitHub](https://github.com/sirberus/vuex-simple-store) • [NPM](https://www.npmjs.com/package/vuex-simple-store)
 
-### Spend as little time as possible with the store.
+#### Spend as little time as possible with the store.
 
 ```
 npm i --save simple-vuex
