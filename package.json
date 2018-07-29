@@ -1,6 +1,6 @@
 {
   "name": "simple-vuex",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Trivialize your store",
   "main": "src/index.js",
   "scripts": {
