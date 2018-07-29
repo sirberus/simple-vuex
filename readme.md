@@ -1,6 +1,12 @@
-# Vuex Simple Store
+# Simple Vuex
 
-Spend as little time as possible with the store.
+[GitHub](https://github.com/sirberus/vuex-simple-store) • [NPM](https://www.npmjs.com/package/vuex-simple-store)
+
+### Spend as little time as possible with the store.
+
+```
+npm i --save simple-vuex
+```
 
 #### Before:
 ```js
@@ -31,12 +37,12 @@ export default () => new Vuex.Store({
 #### After:
 ```js
 import someModule from './someModule.js'
-import store from 'vue-simple-store'
+import store from 'simple-vuex'
 
 export default store()
   .addModule('myModuleName', someModule)
   .addKey('name', 'DEFAULT')
-  .simplify() // Add to your store's root only to wrap in () => Vuex.Store(__)
+  .simplify() // Add to your store's root
 ```
 
 > **Note:** The setter is 'set-name', not 'setName'. There is no auto-camelcasing.
@@ -44,12 +50,12 @@ export default store()
 ## Inline Modules
 
 ```js
-import store from 'vue-simple-store'
+import store from 'simple-vuex'
 
 export store()
   .addKey('name', 'DEFAULT')
   .addModule('myModuleName', store()
-    .addKey('key', 'default') // note: don't call .simplify() on modules, only root store
+    .addKey('key', 'default') // note: don't call .simplify() on modules, only root
   )
   .simplify()
 ```
@@ -57,7 +63,7 @@ export store()
 ## Custom Mutations and Actions
 
 ```js
-import store from 'vue-simple-store'
+import store from 'simple-vuex'
 
 let s = store()
   .addKey('name', 'DEFAULT')
@@ -75,7 +81,7 @@ export s.simplify()
 ## Trivialize your store into a single file
 
 ```js
-import store from 'vue-simple-store'
+import store from 'simple-vuex'
 
 let s = store()
   .addKey('darkMode', false)

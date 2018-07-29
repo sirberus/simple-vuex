@@ -11,5 +11,8 @@
     "vuex"
   ],
   "author": "github.com/sirberus",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "vuex": "^3.0.1"
+  }
 }
