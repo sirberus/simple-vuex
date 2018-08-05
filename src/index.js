@@ -13,7 +13,7 @@ export default function store() {
     },
     addKey(name, defaultValue) {
       this.state[name] = defaultValue
-      this.getters[name] = (state) => (state[name] || defaultValue)
+      this.getters[name] = (state) => name in state ? state[name] : defaultValue
       this.mutations['set-'+name] = (state, val) => (state[name] = val)
       return this
     },
