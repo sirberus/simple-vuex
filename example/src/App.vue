@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div style="width: 100%">
+      <h1>Check the store in the Vue devtools</h1>
+    </div>
   </div>
 </template>
 
