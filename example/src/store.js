@@ -1,11 +1,21 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-Vue.use(Vuex)
-import store from 'simple-vuex'
+// import store from 'simple-vuex'
+import SimpleVuex from './../../src/index.js'
 
-export default store()
-  .addKey('dark', false)
-  .addModule('example', store()
-    .addKey('a', 'b')
-  )
-  .simplify()
+export default SimpleVuex.Store({
+  state: {
+    dark: false,
+    favorites: [],
+    data: {},
+    score: 1,
+    name: "example",
+    empty: null,
+    undefined: undefined,
+  },
+  modules: {
+    example: {
+      state: {
+        a: "b"
+      }
+    }
+  }
+})

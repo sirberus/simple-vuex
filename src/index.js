@@ -1,24 +1,16 @@
 import Vuex from 'vuex'
+import utils from './utils.js'
 
-export default function store() {
-  return Object.assign({}, {
-    namespaced: true,
-    modules: {},
-    state: {},
-    getters: {},
-    mutations: {},
-    addModule(name, module) {
-      this.modules[name] = module
-      return this
-    },
-    addKey(name, defaultValue) {
-      this.state[name] = defaultValue
-      this.getters[name] = (state) => name in state ? state[name] : defaultValue
-      this.mutations['set-'+name] = (state, val) => (state[name] = val)
-      return this
-    },
-    simplify() {
-      return () => new Vuex.Store(this)
-    }
-  })
+export default { 
+  Store(input) {
+    let output = utils.initialize(input)
+    output = utils.namespace(output)
+    output = utils.makeGetters(output)
+    output = utils.makeMutations(output)
+    console.log(output)
+    return () => new Vuex.Store(output)
+  },
+  install(Vue) {
+    Vue.use(Vuex)
+  }
 }
