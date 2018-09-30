@@ -16,7 +16,7 @@ npm i --save simple-vuex
 ```js
 import SimpleVuex from 'SimpleVuex'
 
-export default () => new SimpleVuex.Store({
+export default SimpleVuex.Store({
   state: {
     name: 'Example'
   },
@@ -28,7 +28,7 @@ This is equivalent to the following with vanilla Vuex:
 ```js
 import Vuex from 'Vuex'
 
-export default () => new Vuex.Store({
+export default new Vuex.Store({
   state: {
     name: 'Example'
   },
@@ -67,7 +67,7 @@ Yields this additional mutation:
 
 ### Works with modules and automatically makes them namespaced:
 ```js
-export default () => new SimpleVuex.Store({
+export default SimpleVuex.Store({
   state: {
     name: 'Example'
   },
