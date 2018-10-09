@@ -122,9 +122,9 @@ export default SimpleVuex.Store({
     name: 'You'
   },
   modules: {
-    user: {
+    profile: {
       state: {
-        loggedIn: false,
+        lastLogin: null,
       },
     }
   },
