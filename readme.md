@@ -2,23 +2,22 @@
 
 ### Simplify your store with smart default getters and mutations
 
-[GitHub](https://github.com/sirberus/vuex-simple-store) • [NPM](https://www.npmjs.com/package/vuex-simple-store)
-
 ---
 
-## Usage
+## Install
 
 ```
 npm i --save simple-vuex
 ```
 
-### Provide state to get automatic getters and mutations:
+## Provide state to get automatic getters and mutations:
 ```js
 import SimpleVuex from 'SimpleVuex'
 
 export default SimpleVuex.Store({
   state: {
-    name: 'Example'
+    name: 'Example',
+    loggedIn: false
   },
 })
 ```
@@ -35,19 +34,28 @@ export default new Vuex.Store({
   getters: {
     name: state => {
       return state.name
+    },
+    loggedIn: state => {
+      return state.loggedIn
     }
   },
   mutations: {
     'set-name': (state, val) => {
       state.name = val
-    }
+    },
+    'set-loggedIn': (state, val) => {
+      state.loggedIn = val
+    },
+    'toggle-loggedIn': (state, val) => {
+      state.loggedIn = ! state.loggedIn
+    },
   }
 })
 ```
 
-> All mutations have the format `mutation-key` such as `set-name` above.
+> **All mutations have the format `mutation-key` such as `set-name` above.**
 
-### Type-specific mutations based on default values:
+## Type-specific mutations based on default values:
 
 #### Boolean
 
@@ -65,7 +73,9 @@ Yields this additional mutation:
 }
 ```
 
-### Works with modules and automatically makes them namespaced:
+> *More type-specific getters and mutations are planned for future releases*
+
+## Works with modules and automatically makes them namespaced:
 ```js
 export default SimpleVuex.Store({
   state: {
@@ -73,7 +83,9 @@ export default SimpleVuex.Store({
   },
   modules: {
     user: {
-      loggedIn: false,
+      state: {
+        loggedIn: false,
+      }
     }
   },
 })
@@ -92,3 +104,13 @@ Yields this additional mutation:
 * Clone from GitHub repo (https://github.com/sirberus/simple-vuex)
 
 * In /example/, open a terminal, npm install, and npm run serve
+
+## ToDo
+
+* More type-specific mutations
+
+* Type-specific getters
+
+* Clever helper functions
+
+  * `$store.get(strpath)` eg `$store.get('user/profile.info')`
