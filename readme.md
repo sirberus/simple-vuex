@@ -1,8 +1,6 @@
 # Simple Vuex
 
-### Simplify your store with smart default getters and mutations
-
----
+#### Simplify your store with smart default getters and mutations
 
 ## Install
 
