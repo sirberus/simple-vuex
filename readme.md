@@ -10,7 +10,7 @@
 npm i --save simple-vuex
 ```
 
-## It's just a simple Vuex wrapper, except...
+## Automatic getters and mutations based on default state
 
 ```js
 import SimpleVuex from 'SimpleVuex'
@@ -18,38 +18,50 @@ import SimpleVuex from 'SimpleVuex'
 export default SimpleVuex.Store({
   state: {
     name: 'Evan You',
+    title: 'Creator',
+    loggedIn: false
+  },
+  getters: {
+    firstName(state) => state.name.split(' ')[0],
+  },
+})
+```
+
+Expands out to in vanilla Vuex:
+
+```js
+import Vuex from 'Vuex'
+
+export default Vuex.Store({
+  state: {
+    name: 'Evan You',
+    title: 'Creator',
     loggedIn: false
   },
   getters: {
     name: state => state.name,
     firstName(state) => state.name.split(' ')[0],
+    title: state => state.title,
     loggedIn: state => state.loggedIn,
   },
   mutations: {
-    setName(state, val) {
+    'set-name': (state, val) => {
       state.name = val
     },
-    setLoggedIn(state, val) {
+    'set-title': (state, val) => {
+      state.title = val
+    },
+    'set-loggedIn': (state, val) =>  {
+      state.loggedIn = val
+    },
+    'toggle-loggedIn': (state, val) => {
       state.loggedIn = val
     },
   }
 })
 ```
 
-## You get automatic getters and mutations based on default state, so that example can be reduced to just the unique getters and setters:
-```js
-import SimpleVuex from 'SimpleVuex'
-
-export default SimpleVuex.Store({
-  state: {
-    name: 'Evan',
-    loggedIn: false
-  },
-  getters: {
-    firstName(state) => state.name.split(' ')[0],
-  },
-})
-```
+> **All automatic mutations have the format `${mutation}-${key}` such as `set-name` above.**
 
 ## Base getters and setters
 
@@ -83,8 +95,6 @@ export default new Vuex.Store({
 })
 ```
 
-> **All automatic mutations have the format `${mutation}-${key}` such as `set-label` above.**
-
 ## Type-specific mutations based on default values:
 
 #### Boolean
@@ -109,7 +119,7 @@ Yields this additional mutation:
 ```js
 export default SimpleVuex.Store({
   state: {
-    name: 'Evan You'
+    name: 'You'
   },
   modules: {
     user: {
