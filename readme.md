@@ -10,21 +10,27 @@
 npm i --save simple-vuex
 ```
 
-## It's just Vuex, except...
+## It's just a simple Vuex wrapper, except...
 
 ```js
 import SimpleVuex from 'SimpleVuex'
 
 export default SimpleVuex.Store({
   state: {
+    name: 'Evan You',
     loggedIn: false
   },
   getters: {
-    loggedIn: (state) => state.loggedIn 
+    name: state => state.name,
+    firstName(state) => state.name.split(' ')[0],
+    loggedIn: state => state.loggedIn,
   },
   mutations: {
-    logOut(state) {
-      state.loggedIn = false
+    setName(state, val) {
+      state.name = val
+    },
+    setLoggedIn(state, val) {
+      state.loggedIn = val
     },
     logIn(state) {
       state.loggedIn = true
@@ -33,14 +39,34 @@ export default SimpleVuex.Store({
 })
 ```
 
-## Automatic getters and mutations based on state:
+## You get automatic getters and mutations based on default state, so that example can be reduced to just the unique getters and setters:
 ```js
 import SimpleVuex from 'SimpleVuex'
 
 export default SimpleVuex.Store({
   state: {
-    name: 'Example',
+    name: 'Evan',
     loggedIn: false
+  },
+  getters: {
+    firstName(state) => state.name.split(' ')[0],
+  },
+  mutations: {
+    logIn(state) {
+      state.loggedIn = true
+    }
+  }
+})
+```
+
+## Base getters and setters
+
+```js
+import SimpleVuex from 'SimpleVuex'
+
+export default SimpleVuex.Store({
+  state: {
+    label: 'Example'
   },
 })
 ```
@@ -52,27 +78,20 @@ import Vuex from 'Vuex'
 
 export default new Vuex.Store({
   state: {
-    name: 'Example'
+    label: 'Example'
   },
   getters: {
-    name: state => state.name,
-    loggedIn: state => state.loggedIn
+    label: state => state.label,
   },
   mutations: {
-    'set-name': (state, val) => {
-      state.name = val
-    },
-    'set-loggedIn': (state, val) => {
-      state.loggedIn = val
-    },
-    'toggle-loggedIn': (state, val) => {
-      state.loggedIn = ! state.loggedIn
+    'set-label': (state, val) => {
+      state.label = val
     },
   }
 })
 ```
 
-> **All automatic mutations have the format `mutation-key` such as `set-name` above.**
+> **All automatic mutations have the format `${mutation}-${key}` such as `set-label` above.**
 
 ## Type-specific mutations based on default values:
 
@@ -98,12 +117,25 @@ Yields this additional mutation:
 ```js
 export default SimpleVuex.Store({
   state: {
-    name: 'Example'
+    name: 'Evan You'
+  },
+  getters: {
+    firstName(state) {
+      return state.name.split(' ')[0]
+    }
   },
   modules: {
     user: {
       state: {
         loggedIn: false,
+      },
+      mutation: {
+        logIn(state) {
+          state.loggedIn = true
+        },
+        logOut(state) {
+          state.loggedIn = false
+        }
       }
     }
   },
