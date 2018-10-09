@@ -111,35 +111,14 @@ export default SimpleVuex.Store({
   state: {
     name: 'Evan You'
   },
-  getters: {
-    firstName(state) {
-      return state.name.split(' ')[0]
-    }
-  },
   modules: {
     user: {
       state: {
         loggedIn: false,
       },
-      mutation: {
-        logIn(state) {
-          state.loggedIn = true
-        },
-        logOut(state) {
-          state.loggedIn = false
-        }
-      }
     }
   },
 })
-```
-
-Yields this additional mutation:
-
-```js
-"user/toggle-loggedIn": (state) => {
-  state.user.loggedIn = !state.user.loggedIn
-}
 ```
 
 ## Dev Setup
