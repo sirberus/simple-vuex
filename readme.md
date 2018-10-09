@@ -10,7 +10,30 @@
 npm i --save simple-vuex
 ```
 
-## Provide state to get automatic getters and mutations:
+## It's just Vuex, except...
+
+```js
+import SimpleVuex from 'SimpleVuex'
+
+export default SimpleVuex.Store({
+  state: {
+    loggedIn: false
+  },
+  getters: {
+    loggedIn: (state) => state.loggedIn 
+  },
+  mutations: {
+    logOut(state) {
+      state.loggedIn = false
+    },
+    logIn(state) {
+      state.loggedIn = true
+    }
+  }
+})
+```
+
+## Automatic getters and mutations based on state:
 ```js
 import SimpleVuex from 'SimpleVuex'
 
@@ -32,12 +55,8 @@ export default new Vuex.Store({
     name: 'Example'
   },
   getters: {
-    name: state => {
-      return state.name
-    },
-    loggedIn: state => {
-      return state.loggedIn
-    }
+    name: state => state.name,
+    loggedIn: state => state.loggedIn
   },
   mutations: {
     'set-name': (state, val) => {
@@ -53,7 +72,7 @@ export default new Vuex.Store({
 })
 ```
 
-> **All mutations have the format `mutation-key` such as `set-name` above.**
+> **All automatic mutations have the format `mutation-key` such as `set-name` above.**
 
 ## Type-specific mutations based on default values:
 
