@@ -32,9 +32,6 @@ export default SimpleVuex.Store({
     setLoggedIn(state, val) {
       state.loggedIn = val
     },
-    logIn(state) {
-      state.loggedIn = true
-    }
   }
 })
 ```
@@ -51,11 +48,6 @@ export default SimpleVuex.Store({
   getters: {
     firstName(state) => state.name.split(' ')[0],
   },
-  mutations: {
-    logIn(state) {
-      state.loggedIn = true
-    }
-  }
 })
 ```
 
