@@ -51,7 +51,7 @@ export default Vuex.Store({
       state.loggedIn = val
     },
     'toggle-loggedIn': (state, val) => {
-      state.loggedIn = val
+      state.loggedIn = ! state.loggedIn
     },
   }
 })
