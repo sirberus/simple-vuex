@@ -8,14 +8,16 @@ npm i --save simple-vuex
 
 ## Automatic getters and mutations based on default state
 
+This input:
+
 ```js
 import SimpleVuex from 'SimpleVuex'
 
 export default SimpleVuex.Store({
   state: {
     name: 'Evan You',
-    title: 'Creator',
-    loggedIn: false
+    loggedIn: false,
+    favorites: [],
   },
   getters: {
     firstName(state) => state.name.split(' ')[0],
@@ -23,7 +25,7 @@ export default SimpleVuex.Store({
 })
 ```
 
-Expands out to in vanilla Vuex:
+Is equivalent to this:
 
 ```js
 import Vuex from 'Vuex'
@@ -31,28 +33,30 @@ import Vuex from 'Vuex'
 export default Vuex.Store({
   state: {
     name: 'Evan You',
-    title: 'Creator',
-    loggedIn: false
+    loggedIn: false,
+    favorites: [],
   },
   getters: {
     name: state => state.name,
     firstName(state) => state.name.split(' ')[0],
-    title: state => state.title,
     loggedIn: state => state.loggedIn,
+    title: state => state.title,
+    state: state => state,
   },
   mutations: {
     'set-name': (state, val) => {
       state.name = val
     },
-    'set-title': (state, val) => {
-      state.title = val
-    },
     'set-loggedIn': (state, val) =>  {
       state.loggedIn = val
     },
-    'toggle-loggedIn': (state, val) => {
+    'toggle-loggedIn': (state) => {
       state.loggedIn = ! state.loggedIn
     },
+    'pop-favorite': (state) => {
+      state.favorites.pop()
+    },
+    // ... and several other mutations!
   }
 })
 ```
@@ -81,6 +85,7 @@ export default new Vuex.Store({
     label: 'Example'
   },
   getters: {
+    state: state => state,
     label: state => state.label,
   },
   mutations: {
@@ -109,6 +114,39 @@ Yields this additional mutation:
 }
 ```
 
+#### Array
+
+```js
+state: {
+  favorites: []
+}
+```
+
+Yields these additional mutations:
+
+```js
+"remove-favorite": (state, index) => {
+  state.favorites.splice(index, 1)
+}
+"replace-favorite": (state, index, newValue) => {
+  state.favorites.splice(index, 1, newValue)
+}
+"push-favorite": (state, val) => {
+  state.favorites.push(val)
+}
+"pop-favorite": (state) => {
+  state.favorites.pop()
+}
+"shift-favorite": (state, val) => {
+  state.favorites.shift(val)
+}
+"unshift-favorite": (state) => {
+  state.favorites.unshift()
+}
+```
+
+> **Note the singular 'favorite'.** If the key ends with an 's' (like 'favorites' does) then the s will be removed for mutations that don't 
+
 > *More type-specific getters and mutations are planned for future releases*
 
 ## Works with modules and automatically makes them namespaced:
@@ -126,6 +164,8 @@ export default SimpleVuex.Store({
   },
 })
 ```
+
+This yields getters `name` and `profile/lastLogin`, and mutations `set-name` and `profile/set-lastLogin`.
 
 ## Dev Setup
 

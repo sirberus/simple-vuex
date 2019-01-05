@@ -10,7 +10,9 @@ export function initialize(store) {
   return delve(store, s => Object.assign({
     modules: {},
     state: {},
-    getters: {},
+    getters: {
+      state: s => s
+    },
     mutations: {},
     modules: {}
   }, s))
@@ -50,9 +52,19 @@ export function getMutations(key, val) {
   let mutations = {}
   mutations[`set-${key}`] = (state, val) => {state[key] = val}
   
-  let type = getType(val)
-  if (type === 'Boolean') {
-    mutations[`toggle-${key}`] = (state) => {state[key] = !state[key]}
+  switch (getType(val)) {
+    case 'Boolean':
+      mutations[`toggle-${key}`] = (state) => {state[key] = !state[key]}
+      break
+    case 'Array':
+      let singular = key.endsWith('s') ? key.substring(0, key.length-1) : key
+      mutations[`remove-${singular}`] = (state, index) => {state[key].splice(index, 1)}
+      mutations[`replace-${singular}`] = (state, index, newValue) => {state[key].splice(index, 1, newValue)}
+      mutations[`push-${singular}`] = (state, val) => {state[key].push(val)}
+      mutations[`pop-${singular}`] = (state) => {state[key].pop()}
+      mutations[`shift-${singular}`] = (state, val) => {state[key].shift(val)}
+      mutations[`unshift-${singular}`] = (state) => {state[key].unshift()}
+      break
   }
   
   return mutations
@@ -68,9 +80,17 @@ export function makeMutations(store) {
   })
 }
 
+export function applyDefaults(input) {
+  let output = initialize(input)
+  output = namespace(output)
+  output = makeGetters(output)
+  return makeMutations(output)
+}
+
 export default {
   initialize,
   namespace,
   makeGetters,
   makeMutations,
+  applyDefaults,
 }
